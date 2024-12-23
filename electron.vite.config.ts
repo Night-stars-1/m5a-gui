@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-09-06 17:06:15
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-09-13 17:55:41
+ * @LastEditTime: 2024-12-23 12:38:20
  */
 import path, { resolve } from 'path'
 import { defineConfig, externalizeDepsPlugin } from 'electron-vite'
@@ -31,6 +31,7 @@ function configureOcrModel() {
   // 如果没有找到 MaaCommonAssets/OCR 目录
   if (!existsSync(ocrAssetsDir)) {
     console.log('请完整克隆本仓库，不要漏掉 "--recursive"，也不要下载 zip 包！')
+    console.log('你可以使用 git submodule update --init --recursive 克隆子模块')
     process.exit(1) // 退出程序
   }
 

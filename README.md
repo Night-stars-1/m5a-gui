@@ -20,7 +20,6 @@ An Electron application with Vue
 git clone --recursive https://github.com/Night-stars-1/maa-gui.git
 $ pnpm install
 ```
-
 ### Development
 
 - 根据`.env`的提示更改`.env`

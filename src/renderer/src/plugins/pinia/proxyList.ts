@@ -2,16 +2,16 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-09-11 19:15:27
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-09-12 01:31:44
+ * @LastEditTime: 2024-12-23 12:44:24
  */
-import { getProxy, setProxy } from '@renderer/utils/proxyUtils'
+import { getCustomProxy, getProxy, setCustomProxy, setProxy } from '@renderer/utils/proxyUtils'
 import { defineStore } from 'pinia'
 
 export const useProxyList = defineStore('proxyList', () => {
   const proxyList = [
     {
-      name: 'https://ghp.ci/',
-      url: 'https://ghp.ci/'
+      name: 'https://ghgo.xyz/',
+      url: 'https://ghgo.xyz/'
     },
     {
       name: '不代理',
@@ -19,6 +19,7 @@ export const useProxyList = defineStore('proxyList', () => {
     }
   ]
   const proxy = ref<string>('')
+  const customProxy = ref<string>('')
 
   watch(
     () => proxy.value,
@@ -26,6 +27,13 @@ export const useProxyList = defineStore('proxyList', () => {
       setProxy(value)
     }
   )
+  watch(
+    () => customProxy.value,
+    (value) => {
+      setCustomProxy(value)
+    }
+  )
   getProxy().then((item) => (proxy.value = item))
-  return { proxy, proxyList }
+  getCustomProxy().then((item) => (customProxy.value = item))
+  return { proxy, customProxy, proxyList }
 })

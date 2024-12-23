@@ -2,14 +2,14 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-09-13 11:13:39
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-09-13 18:47:28
+ * @LastEditTime: 2024-12-23 12:44:05
 -->
 <script setup lang="ts">
 import { useProxyList } from '@stores/proxyList'
 import { useSnackbar } from '@stores/snackbar'
 import { debounce } from 'lodash'
 
-const { proxy } = storeToRefs(useProxyList())
+const { proxy, customProxy } = storeToRefs(useProxyList())
 const { createToast } = useSnackbar()
 
 const isUpdate = ref(false)
@@ -47,10 +47,10 @@ async function update(event: any) {
   event.target?.closest('.v-list-item')?.classList?.remove('v-list-item--active')
   updateProgress.value = '0'
   updateTitle.value = '检测更新中...'
-  const version = await window.api.isResUpdate(proxy.value)
+  const version = await window.api.isResUpdate(customProxy.value ?? proxy.value)
   if (typeof version === 'string') {
     updateTitle.value = '下载资源包中...'
-    window.api.update(version, proxy.value)
+    window.api.update(version, customProxy.value ?? proxy.value)
   } else {
     createToast('已是最新版本')
     isUpdate.value = false
@@ -59,7 +59,7 @@ async function update(event: any) {
 const debouncedUpdate = debounce(update, 200)
 
 onBeforeMount(async () => {
-  const version = await window.api.isResUpdate(proxy.value)
+  const version = await window.api.isResUpdate(customProxy.value ?? proxy.value)
   if (typeof version === 'string') {
     isUpdate.value = true
   }

@@ -2,13 +2,13 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-09-13 11:13:39
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-09-16 17:40:51
+ * @LastEditTime: 2024-12-23 12:45:18
 -->
 <script setup lang="ts">
 import { useProxyList } from '@stores/proxyList'
 import { debounce } from 'lodash'
 
-const { proxy } = storeToRefs(useProxyList())
+const { proxy, customProxy } = storeToRefs(useProxyList())
 
 const isUpdate = ref(false)
 const updateProgress = ref(0)
@@ -50,7 +50,7 @@ window.electron.ipcRenderer.on('maa-gui-downloaded', () => {
 async function update(event: any) {
   event.target?.closest('.v-list-item')?.classList?.remove('v-list-item--active')
   updateProgress.value = 0
-  const isUpdate = await window.api.isGuiUpdate(proxy.value)
+  const isUpdate = await window.api.isGuiUpdate(customProxy.value ?? proxy.value)
   confirming.value = isUpdate
 }
 const debouncedUpdate = debounce(update, 200)
@@ -69,7 +69,7 @@ function confirm() {
 }
 
 onBeforeMount(async () => {
-  isUpdate.value = await window.api.isGuiUpdate(proxy.value)
+  isUpdate.value = await window.api.isGuiUpdate(customProxy.value ?? proxy.value)
 })
 </script>
 

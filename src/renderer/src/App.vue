@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-09-06 17:06:15
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-09-11 14:30:25
+ * @LastEditTime: 2024-12-23 12:20:20
 -->
 <script setup lang="ts">
 import { init } from '@renderer/plugins/pinia'
