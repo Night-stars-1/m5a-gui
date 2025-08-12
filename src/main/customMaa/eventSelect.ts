@@ -4,7 +4,7 @@
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
  * @LastEditTime: 2024-10-09 13:54:24
  */
-import * as maa from '@nekosu/maa-node'
+import * as maa from '@maaxyz/maa-node'
 import { log } from '../utils/logger'
 import { EVENT_DATA } from '../reszip'
 

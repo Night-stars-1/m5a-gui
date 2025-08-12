@@ -4,7 +4,7 @@
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
  * @LastEditTime: 2024-09-23 21:42:47
  */
-import * as maa from '@nekosu/maa-node'
+import * as maa from '@maaxyz/maa-node'
 import Goal from './2048/goal'
 import Grid from './2048/grid'
 import GameController from './2048/gameController'

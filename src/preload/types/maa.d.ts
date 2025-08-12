@@ -9,7 +9,7 @@ interface AdbInfo {
   name: string
   adb_path: string
   address: string
-  screencap_methods: import('@nekosu/maa-node').api.Uint64
-  input_methods: import('@nekosu/maa-node').api.Uint64
+  screencap_methods: import('@maaxyz/maa-node').api.Uint64
+  input_methods: import('@maaxyz/maa-node').api.Uint64
   config: string
 }

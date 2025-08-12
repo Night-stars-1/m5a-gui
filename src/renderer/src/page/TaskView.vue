@@ -22,8 +22,7 @@ const { selectData } = storeToRefs(useselectData)
 function setSelectData(task: Task) {
   if (task.option) {
     task.optionData = task.option.map<PurpleParam>(
-      (item) =>
-        data.value!.option[item].cases[0].pipeline_override
+      (item) => data.value!.option[item].cases[0].pipeline_override
     )
   }
   task.id = selectData.value.length + 1

@@ -4,7 +4,7 @@
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
  * @LastEditTime: 2024-09-18 18:58:39
  */
-import * as maa from '@nekosu/maa-node'
+import * as maa from '@maaxyz/maa-node'
 import eventSelect from './eventSelect'
 import challenge2048 from './challenge2048'
 

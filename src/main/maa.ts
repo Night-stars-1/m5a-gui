@@ -6,7 +6,7 @@
  */
 import fs from 'fs'
 import path from 'path'
-import maa from '@nekosu/maa-node'
+import maa from '@maaxyz/maa-node'
 import { BrowserWindow, ipcMain } from 'electron'
 import { registerCustom, customParam } from './customMaa'
 import { log, logger } from './utils/logger'

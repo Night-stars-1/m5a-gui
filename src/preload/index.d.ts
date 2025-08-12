@@ -5,7 +5,7 @@
  * @LastEditTime: 2024-10-05 16:41:32
  */
 import type { ElectronAPI } from '@electron-toolkit/preload'
-import type * as maa from '@nekosu/maa-node'
+import type * as maa from '@maaxyz/maa-node'
 
 declare global {
   interface Window {
