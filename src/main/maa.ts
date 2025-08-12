@@ -16,7 +16,7 @@ import { BASE_RES_PATH, INTERFACE_PATH } from './reszip'
 maa.Global.log_dir = path.join(BASE_RES_PATH, 'logs')
 maa.Global.debug_mode = true
 
-let tskr: maa.Tasker
+let tasker: maa.Tasker
 let win: BrowserWindow
 let res: maa.Resource
 
@@ -73,9 +73,9 @@ async function init(device: AdbInfo) {
   await upResources()
 
   // 创建实例
-  tskr = new maa.Tasker()
+  tasker = new maa.Tasker()
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  tskr.notify = (msg: any, detail) => {
+  tasker.notify = (msg: any, detail) => {
     handleDebug({ msg, detail: JSON.parse(detail) })
   }
   // inst = new maa.Instance()
@@ -86,21 +86,21 @@ async function init(device: AdbInfo) {
   // }
 
   // 绑定控制器和资源
-  tskr.bind(ctrl)
-  tskr.bind(res)
+  tasker.bind(ctrl)
+  tasker.bind(res)
 
   registerCustom(res)
-  return tskr.inited
+  return tasker.inited
 }
 
 async function upResources() {
-  res && (await res.post_path(BASE_RES_PATH).wait())
+  res && (await res.post_bundle(BASE_RES_PATH).wait())
   win && win.webContents.send('maa-res-update')
 }
 
 async function start(task: Task[]) {
   // 检查是否正确创建
-  log(`开始执行 ${tskr.inited}`)
+  log(`开始执行 ${tasker.inited}`)
 
   // 执行任务
   for (const t of task) {
@@ -108,14 +108,13 @@ async function start(task: Task[]) {
     t.optionData?.forEach((item) => Object.assign(param, item))
     t.pipeline_override && Object.assign(param, t.pipeline_override)
     Object.assign(param, customParam)
-    // await inst.post_task('MyTask', param).wait()
-    await tskr.post_pipeline(t.entry, param).wait()
+    await tasker.post_task(t.entry, param).wait()
   }
   log(`执行完毕`)
 }
 
 async function stop() {
-  tskr?.post_stop()
+  tasker?.post_stop()
 }
 
 function getInterface() {
@@ -139,7 +138,7 @@ function queryRecognitionDetail(recoId: maa.api.RecoId) {
   // if (imageListHandle && maa.get_image_list_size(imageListHandle) > 0) {
   //   image = maa.get_image_encoded(maa.get_image_list_at(imageListHandle, 0))
   // }
-  const result = maa.api.tasker_get_recognition_detail(tskr.handle, recoId)
+  const result = maa.api.tasker_get_recognition_detail(tasker.handle, recoId)
   if (result) {
     return { info: {}, image: result[6][0] }
   }
@@ -147,7 +146,7 @@ function queryRecognitionDetail(recoId: maa.api.RecoId) {
 }
 
 ipcMain.on('maa-start', async (_, arg: string) => {
-  if (!tskr) {
+  if (!tasker) {
     log('未初始化, 连接默认设备')
     const devices = await getDevices()
     if (devices.length === 0) {
