@@ -67,9 +67,8 @@ async function getChessboard(context: maa.Context, image: ArrayBuffer, checkList
   const results = await Promise.all(recognitionPromises)
   for (let i = 0; i < results.length; i++) {
     const data = results[i]
-    if (!data || data.detail == 'null') continue
-    const detail = JSON.parse(data.detail)
-    const filtered: { box: number[]; score: number }[] = detail.filtered
+    if (!data?.detail) continue
+    const filtered = data.detail.filtered
     filtered.forEach((item) => {
       const pos = getChessboardPos(item.box)
       chessboard[pos.y][pos.x] = 2 * Math.pow(2, i)

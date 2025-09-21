@@ -4,29 +4,30 @@
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
  * @LastEditTime: 2024-10-05 16:11:40
  */
+import maa from '@maaxyz/maa-node'
 import { log, sendEndRecognize, sendStartRecognize } from '../utils/logger'
 
-function handleDebug(data: DebugData) {
+function handleDebug(data: maa.TaskerNotify) {
   const type = data.msg
   switch (type) {
-    case 'Task.NextList.Starting':
-      sendStartRecognize(data.detail.name, data.detail.list)
+    case 'NextList.Starting':
+      sendStartRecognize(data.name, data.list)
       break
-    case 'Task.NextList.Failed':
+    case 'NextList.Failed':
       break
-    case 'Task.NextList.Succeeded':
+    case 'NextList.Succeeded':
       break
-    case 'Task.Recognition.Starting':
+    case 'Recognition.Starting':
       break
-    case 'Task.Recognition.Succeeded':
-      sendEndRecognize(data.detail.reco_id, data.detail.name, true)
+    case 'Recognition.Succeeded':
+      sendEndRecognize(Number(data.reco_id), data.name, true)
       break
-    case 'Task.Recognition.Failed':
-      sendEndRecognize(data.detail.reco_id, data.detail.name, false)
+    case 'Recognition.Failed':
+      sendEndRecognize(Number(data.reco_id), data.name, false)
       break
     default:
       if (type.startsWith('Task.Debug')) return
-      log(`${type} ${JSON.stringify(data.detail)}`)
+      log(`${type} ${JSON.stringify(data)}`)
       // logger.debug(`${type} ${JSON.stringify(data.detail)}`)
       break
   }

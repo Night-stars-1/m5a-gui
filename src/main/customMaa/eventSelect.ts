@@ -16,14 +16,14 @@ const eventSelect: maa.CustomRecognizerCallback = async (self) => {
     log('未识别到内容')
     return null
   }
-  const outDetail = JSON.parse(data.detail)
+  const outDetail = data.detail
   if (outDetail.all.length < 1) {
     log('事件标题获取失败')
     return null
   }
   const textData = outDetail.all[0]
-  const title = textData.text
-  const score = textData.score
+  const title = textData.text || '未知'
+  const score = textData.score || 0
   const option = EVENT_DATA[title]
   if (!option) {
     log('未知事件')

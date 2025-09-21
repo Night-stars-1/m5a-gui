@@ -75,9 +75,9 @@ async function init(device: AdbInfo) {
   // 创建实例
   tasker = new maa.Tasker()
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  tasker.notify = (msg: any, detail) => {
-    handleDebug({ msg, detail: JSON.parse(detail) })
-  }
+  tasker.chain_parsed_notify((msg) => {
+    handleDebug(msg)
+  })
   // inst = new maa.Instance()
   // inst.notify = (msg: any, detail) => {
   //   // log(`${msg} ${detail}`)
